@@ -1,10 +1,10 @@
 //https://reactrouter.com/web/example/sidebar
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import { Tab, Pool, Energy, Wallet, Setting, Login } from './pages';
+import { Tab, Pool, Energy, Wallet, Setting, Auth } from './pages';
 import { ProvideStore, useStore } from './Provider';
 
-function PrivateRoute({ component, ...rest }) {
+function PrivateRoute({ authType, component, ...rest }) {
   let store = useStore();
   const location = useLocation();
   return (
@@ -16,8 +16,8 @@ function PrivateRoute({ component, ...rest }) {
           : () => (
               <Redirect
                 to={{
-                  pathname: '/login',
-                  state: { from: location },
+                  pathname: '/auth',
+                  state: { from: location, authType },
                 }}
               />
             )
@@ -33,7 +33,7 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/pool" />
           <Route path="/setting" component={Setting} />
-          <Route path="/login" component={Login} />
+          <Route path="/auth" component={Auth} />
           <Switch>
             <Tab>
               <Route path="/pool" component={Pool} />

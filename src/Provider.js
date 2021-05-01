@@ -5,18 +5,14 @@ const StoreContext = createContext();
 function useProvideStore() {
   const [user, setUser] = useState(null);
 
-  const signin = (cb) => {
-    return () => {
-      setUser('user');
-      cb();
-    };
+  const signin = (user, cb) => {
+    setUser(user);
+    cb && cb();
   };
 
   const signout = (cb) => {
-    return () => {
-      setUser(null);
-      cb();
-    };
+    setUser(null);
+    cb && cb();
   };
 
   return {
