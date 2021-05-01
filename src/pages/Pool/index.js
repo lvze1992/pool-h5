@@ -42,10 +42,6 @@ export default class Pool extends Component {
             {price}
             <span className="unit">USDT/T</span>
           </span>
-        </div>
-        <div className="qrcode">
-          <img src={qrcode} alt="qrcode" />
-          <p>客服微信: {weChat}</p>
           <Button
             type="primary"
             onClick={() => {
@@ -55,6 +51,10 @@ export default class Pool extends Component {
           >
             立即购买
           </Button>
+        </div>
+        <div className="qrcode">
+          <img src={qrcode} alt="qrcode" />
+          <p>客服微信: {weChat}</p>
         </div>
         <Info />
       </div>
