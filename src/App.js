@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+//https://reactrouter.com/web/example/sidebar
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Tab, Pool, Energy, Wallet, Setting } from './pages';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/setting" component={Setting} />
+        <Switch>
+          <Tab>
+            <Route path="/pool" component={Pool} />
+            <Route path="/energy" component={Energy} />
+            <Route path="/wallet" component={Wallet} />
+          </Tab>
+        </Switch>
+      </Switch>
+    </Router>
   );
 }
 
