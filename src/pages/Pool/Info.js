@@ -18,7 +18,7 @@ const data = [
 ];
 export default function Info() {
   return [
-    <div className="info-box">
+    <div className="info-box" key="info1">
       {data[0].map((item, idx) => {
         const { label, value } = item;
         return (
@@ -29,7 +29,7 @@ export default function Info() {
         );
       })}
     </div>,
-    <div className="info-box">
+    <div className="info-box" key="info2">
       {data[1].map((item, idx) => {
         const { label, value } = item;
         return (
