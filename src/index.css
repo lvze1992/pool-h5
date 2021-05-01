@@ -1,26 +1,23 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #fff;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 @font-face {
-  font-family: "iconfont"; /* Project id 2523631 */
-  src: url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.woff2?t=1619843274540') format('woff2'),
-       url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.woff?t=1619843274540') format('woff'),
-       url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.ttf?t=1619843274540') format('truetype');
+  font-family: 'iconfont'; /* Project id 2523631 */
+  src: url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.woff2?t=1619843274540') format('woff2'), url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.woff?t=1619843274540') format('woff'),
+    url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.ttf?t=1619843274540') format('truetype');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -28,17 +25,17 @@ code {
 }
 
 .icon-yunjisuan:before {
-  content: "\e7bc";
+  content: '\e7bc';
 }
 
 .icon-qianbao4:before {
-  content: "\e63a";
+  content: '\e63a';
 }
 
 .icon--wakuangjiankong:before {
-  content: "\e60f";
+  content: '\e60f';
 }
 
 .icon--wakuangjiankong1:before {
-  content: "\e604";
+  content: '\e604';
 }

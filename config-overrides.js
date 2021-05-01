@@ -1,7 +1,15 @@
-const { override, fixBabelImports } = require('customize-cra');
+const theme = require('./theme');
+const { override, addLessLoader, fixBabelImports, addDecoratorsLegacy } = require('customize-cra');
+
 module.exports = override(
+  addLessLoader({
+    javascriptEnabled: true,
+    modifyVars: theme,
+  }), //antd定制主题
   fixBabelImports('import', {
     libraryName: 'antd-mobile',
-    style: 'css',
-  }),
+    libraryDirectory: 'es',
+    style: true,
+  }), //antd按需加载
+  addDecoratorsLegacy(), //配置装饰器
 );

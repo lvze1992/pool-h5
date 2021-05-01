@@ -1,0 +1,20 @@
+.pool-wrapper {
+  text-align: center;
+}
+.banner {
+  overflow: hidden;
+  padding: 20px 0;
+}
+.box-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  .box {
+    line-height: 1.5;
+    flex: 1;
+    span {
+      display: block;
+    }
+  }
+}
