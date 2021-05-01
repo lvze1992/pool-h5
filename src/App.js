@@ -1,5 +1,5 @@
 //https://reactrouter.com/web/example/sidebar
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Tab, Pool, Energy, Wallet, Setting } from './pages';
 import './App.css';
 
@@ -7,6 +7,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Redirect exact from="/" to="/pool" />
         <Route path="/setting" component={Setting} />
         <Switch>
           <Tab>

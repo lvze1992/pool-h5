@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "iconfont"; /* Project id 2523631 */
+  src: url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.woff2?t=1619843274540') format('woff2'),
+       url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.woff?t=1619843274540') format('woff'),
+       url('//at.alicdn.com/t/font_2523631_x1nks6wsv7.ttf?t=1619843274540') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-yunjisuan:before {
+  content: "\e7bc";
+}
+
+.icon-qianbao4:before {
+  content: "\e63a";
+}
+
+.icon--wakuangjiankong:before {
+  content: "\e60f";
+}
+
+.icon--wakuangjiankong1:before {
+  content: "\e604";
+}
