@@ -1,4 +1,6 @@
 const theme = require('./theme');
+process.env.BUILD_PATH = 'docs';
+
 const { override, addLessLoader, fixBabelImports, addDecoratorsLegacy } = require('customize-cra');
 
 module.exports = override(
