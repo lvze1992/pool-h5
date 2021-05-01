@@ -2,7 +2,7 @@ import React from 'react';
 import { TabBar } from 'antd-mobile';
 import { useHistory, useLocation } from 'react-router-dom';
 import _ from 'lodash';
-import './tab.scss'
+import './tab.scss';
 
 const TabBarItem = TabBar.Item;
 const tabConigs = {
@@ -27,7 +27,7 @@ export default function Tab(props) {
   const history = useHistory();
   return (
     <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }} className="tab-bar">
-      <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="white">
+      <TabBar unselectedTintColor="#9c9c9c" tintColor="#76d1f9" barTintColor="transparent">
         {props.children.map((route, index) => {
           const path = _.get(route, 'props.path');
           const tabConig = tabConigs[path];

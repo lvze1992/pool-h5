@@ -24,15 +24,15 @@ module.exports = {
   // 透明度
   '@opacity-disabled': '0.3', // switch checkbox radio 等组件禁用的透明度
   // 全局/品牌色
-  '@brand-primary': '#108ee9',
-  '@brand-primary-tap': '#0e80d2',
+  '@brand-primary': '#1aa0db',
+  '@brand-primary-tap': '#1aa0dbcc',
   '@brand-success': '#6abf47',
   '@brand-warning': '#ffc600',
   '@brand-error': '#f4333c',
   '@brand-important': '#ff5b05', // 用于小红点
-  '@brand-wait': '#108ee9',
+  '@brand-wait': '#1aa0db',
   // 边框色
-  '@border-color-base': '#ddd',
+  '@border-color-base': 'transparent',
   // 字体尺寸
   // ---
   '@font-size-icontext': '10 * @hd',

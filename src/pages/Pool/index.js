@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import { Button, Toast } from 'antd-mobile';
+import * as copy from 'copy-to-clipboard';
+import Info from './Info';
+import qrcode from '../../imgs/qrcode.png';
 import './pool.scss';
 const data = {
   price: '80',
+  weChat: 'xxxxx',
 };
+
+async function buyPool() {
+  Toast.info('微信号已复制，请前往微信联系客服咨询', 3);
+}
 export default class Pool extends Component {
   render() {
-    const { price } = data;
+    const { price, weChat } = data;
     return (
       <div className="pool-wrapper">
         <div className="banner">
@@ -15,7 +24,7 @@ export default class Pool extends Component {
         </div>
         <div className="box-list">
           <div className="box">
-            <span>80U/T</span>
+            <span>{price}U/T</span>
             <span>全网低价</span>
           </div>
           <div className="box">
@@ -27,6 +36,27 @@ export default class Pool extends Component {
             <span>闪电P盘</span>
           </div>
         </div>
+        <div className="price-box">
+          <span className="price-key">算力单价</span>
+          <span className="price-value">
+            {price}
+            <span className="unit">USDT/T</span>
+          </span>
+        </div>
+        <div className="qrcode">
+          <img src={qrcode} alt="qrcode" />
+          <p>客服微信: {weChat}</p>
+          <Button
+            type="primary"
+            onClick={() => {
+              copy(weChat);
+              buyPool();
+            }}
+          >
+            立即购买
+          </Button>
+        </div>
+        <Info />
       </div>
     );
   }
