@@ -48,13 +48,12 @@ function useAuthStatus(authConfig) {
 export default function Auth(props) {
   const history = useHistory();
   const location = useLocation();
-  const authType = location.state.authType || 'loginSms';
+  const [authType, setAuthType] = useState(location.state.authType || 'loginPwd');
   const authConfig = authConfigs[authType];
-  const { authStatus, preAction, authAction, next } = useAuthStatus(authConfig);
+  const { authStatus, authAction, next } = useAuthStatus(authConfig);
   useEffect(() => {
     if (authStatus.result) {
       //校验通过，跳回原页面 & 回调
-      console.log('authStatus', authStatus);
       history.replace(_.get(location, 'state.from', '/'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +67,7 @@ export default function Auth(props) {
           history.replace('/');
         }}
       />
-      <div className="auth-container">{!!Comp ? <Comp next={next} authStatus={authStatus} authConfig={authConfig} /> : null}</div>
+      <div className="auth-container">{!!Comp ? <Comp next={next} authStatus={authStatus} authConfig={authConfig} authType={authType} setAuthType={setAuthType} /> : null}</div>
     </div>
   );
 }

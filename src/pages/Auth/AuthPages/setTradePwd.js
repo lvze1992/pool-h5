@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { Button } from 'antd-mobile';
+import { CodeInput } from '../../../components';
 export default function SetTradePwd(props) {
   const [tradePwd, setPwd] = useState('');
   return (
     <div>
-      <div className="input-box">
-        <input
-          className="custom-input"
-          type="password"
-          placeholder="设置交易密码"
-          value={tradePwd}
-          onChange={(e) => {
-            setPwd(e.target.value);
-          }}
-        />
-      </div>
+      <CodeInput
+        placeholder="设置交易密码"
+        value={tradePwd}
+        onChange={(value) => {
+          setPwd(value);
+        }}
+      />
       <Button
         type="primary"
         disabled={tradePwd.length < 6}

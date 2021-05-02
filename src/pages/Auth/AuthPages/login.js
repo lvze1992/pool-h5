@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { useStore } from '../../../Provider';
 import { Loading } from '../../../components';
 async function login(phone, pwd, sms) {
-  console.log('login', phone, pwd, sms);
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({ user: { a: 1 } });

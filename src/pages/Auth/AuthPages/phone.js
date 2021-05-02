@@ -1,10 +1,52 @@
 import React, { useState } from 'react';
-import { Button, Picker } from 'antd-mobile';
+import { Button, Picker, Toast } from 'antd-mobile';
 import countries from '../location.json';
+function renderActionButton({ code, phone, authType, setAuthType, next }) {
+  if (authType === 'loginSms') {
+    return (
+      <div
+        className="action-button"
+        onClick={() => {
+          if (phone.length < 8) {
+            Toast.info('请输入正确的手机号');
+            return;
+          }
+          setAuthType('loginPwd');
+          next({
+            code,
+            phone,
+          });
+        }}
+      >
+        密码登录
+      </div>
+    );
+  } else if (authType === 'loginPwd') {
+    return (
+      <div
+        className="action-button"
+        onClick={() => {
+          if (phone.length < 8) {
+            Toast.info('请输入正确的手机号');
+            return;
+          }
+          setAuthType('loginSms');
+          next({
+            code,
+            phone,
+          });
+        }}
+      >
+        验证码登录
+      </div>
+    );
+  }
+  return null;
+}
 export default function Phone(props) {
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('86_CN');
-
+  const { setAuthType, authType, next } = props;
   return (
     <div>
       <div className="welcome-banner">
@@ -55,6 +97,7 @@ export default function Phone(props) {
       >
         下一步
       </Button>
+      {renderActionButton({ code, phone, authType, setAuthType, next })}
     </div>
   );
 }
