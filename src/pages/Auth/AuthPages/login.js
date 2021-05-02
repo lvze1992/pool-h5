@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Toast } from 'antd-mobile';
 import _ from 'lodash';
 import { useStore } from '../../../Provider';
 import { Loading } from '../../../components';
@@ -21,9 +22,8 @@ export default function Login(props) {
     async function fetchData() {
       let user = await login(phone, pwd, sms);
       store.signin(user);
-      console.log('location', location);
-      history.replace(_.get(location, 'state.from', '/'));
-      //   props.next({ user });
+      Toast.info('登录成功');
+      props.next({ user, result: true });
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import _ from 'lodash';
 import * as AuthPages from './AuthPages';
@@ -24,7 +24,7 @@ const authConfigs = {
   modifyTradePwd: ['newTradePwd', 'sms', 'modifyTradePwd'],
 };
 function useAuthStatus(authConfig) {
-  const [authStatus, setAuthStatus] = useState({});
+  const [authStatus, setAuthStatus] = useState({ result: false });
   const [step, setNext] = useState('0');
   const authAction = _.get(authConfig, step);
   // const
@@ -44,9 +44,17 @@ function useAuthStatus(authConfig) {
 export default function Auth(props) {
   const history = useHistory();
   const location = useLocation();
-  const authType = location.state.authType || 'loginPwd';
+  const authType = location.state.authType || 'modifyTradePwd';
   const authConfig = authConfigs[authType];
   const { authStatus, authAction, next } = useAuthStatus(authConfig);
+  useEffect(() => {
+    if (authStatus.result) {
+      //校验通过，跳回原页面 & 回调
+      console.log('authStatus', authStatus);
+      history.replace(_.get(location, 'state.from', '/'));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authStatus.result]);
   const Comp = AuthPages[authAction];
 
   return (

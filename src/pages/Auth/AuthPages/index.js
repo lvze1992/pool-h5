@@ -1,5 +1,14 @@
 import phone from './phone';
 import sms from './sms';
 import setPassword from './setPassword';
+import tradePwdCheck from './tradePwdCheck';
+import password from './password';
+import setTradePwd from './setTradePwd';
+import tradePwd from './tradePwd';
+import tradeAuth from './tradeAuth';
 import login from './login';
-export { phone, sms, setPassword, login };
+import modifyPwd from './modifyPwd';
+import oldNewPwd from './oldNewPwd';
+import newTradePwd from './newTradePwd';
+import modifyTradePwd from './modifyTradePwd';
+export { phone, sms, setPassword, login, password, tradePwdCheck, setTradePwd, tradeAuth, tradePwd, modifyPwd, oldNewPwd, newTradePwd, modifyTradePwd };
