@@ -4,15 +4,17 @@ export default function Password(props) {
   const [pwd, setPwd] = useState('');
   return (
     <div>
-      <input
-        className="custom-input"
-        type="password"
-        placeholder='输入登录密码'
-        value={pwd}
-        onChange={(e) => {
-          setPwd(e.target.value);
-        }}
-      />
+      <div className="input-box">
+        <input
+          className="custom-input"
+          type="password"
+          placeholder="输入登录密码"
+          value={pwd}
+          onChange={(e) => {
+            setPwd(e.target.value);
+          }}
+        />
+      </div>
       <Button
         type="primary"
         disabled={pwd.length < 8}

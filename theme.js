@@ -14,7 +14,7 @@ module.exports = {
   '@color-text-paragraph': '#333', // 段落
   '@color-link': '@brand-primary', // 链接
   // 背景色
-  '@fill-base': 'transparent', // 组件默认背景
+  '@fill-base': '#fff', // 组件默认背景
   '@fill-body': '#1f2d39', // 页面背景
   '@fill-tap': '#ddd', // 组件默认背景 - 按下
   '@fill-disabled': '#ddd', // 通用失效背景

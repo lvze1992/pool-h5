@@ -4,15 +4,17 @@ export default function TradePwd(props) {
   const [tradePwd, setPwd] = useState('');
   return (
     <div>
-      <input
-        className="custom-input"
-        type="password"
-        placeholder='输入交易密码'
-        value={tradePwd}
-        onChange={(e) => {
-          setPwd(e.target.value);
-        }}
-      />
+      <div className="input-box">
+        <input
+          className="custom-input"
+          type="password"
+          placeholder="输入交易密码"
+          value={tradePwd}
+          onChange={(e) => {
+            setPwd(e.target.value);
+          }}
+        />
+      </div>
       <Button
         type="primary"
         disabled={tradePwd.length < 6}

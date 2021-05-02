@@ -4,16 +4,18 @@ export default function Sms(props) {
   const [sms, setSms] = useState('');
   return (
     <div>
-      <input
-        className="custom-input"
-        type="number"
-        placeholder="输入短信验证码"
-        maxLength="6"
-        value={sms}
-        onChange={(e) => {
-          setSms(e.target.value);
-        }}
-      />
+      <div className="input-box">
+        <input
+          className="custom-input"
+          type="number"
+          placeholder="输入短信验证码"
+          maxLength="6"
+          value={sms}
+          onChange={(e) => {
+            setSms(e.target.value);
+          }}
+        />
+      </div>
       <Button
         type="primary"
         disabled={sms.length < 6}

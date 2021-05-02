@@ -1,0 +1,36 @@
+.auth-page {
+  .auth-container {
+    padding: 20px;
+    .input-box {
+      margin-top: 20px;
+    }
+  }
+  .picker-value {
+    display: block;
+    line-height: 25px;
+    border-right: 1px solid #ffffff78;
+    margin-right: 10px;
+    padding: 0 10px;
+    width: 75px;
+    box-sizing: border-box;
+    i {
+      font-size: 12px;
+      margin: 0 5px;
+    }
+  }
+  .welcome-banner {
+    overflow: hidden;
+    .high-light {
+      color: #54cbff;
+      margin: 0 10px;
+    }
+  }
+  .tip {
+    font-size: 12px;
+    line-height: 40px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .am-button {
+    margin-top: 40px;
+  }
+}

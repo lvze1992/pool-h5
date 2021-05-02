@@ -1,0 +1,14 @@
+.App {
+}
+.input-box {
+  display: flex;
+  align-items: center;
+  input.custom-input {
+    background-color: transparent;
+    border: none;
+    line-height: 40px;
+    width: 100%;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+}

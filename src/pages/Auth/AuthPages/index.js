@@ -11,4 +11,5 @@ import modifyPwd from './modifyPwd';
 import oldNewPwd from './oldNewPwd';
 import newTradePwd from './newTradePwd';
 import modifyTradePwd from './modifyTradePwd';
-export { phone, sms, setPassword, login, password, tradePwdCheck, setTradePwd, tradeAuth, tradePwd, modifyPwd, oldNewPwd, newTradePwd, modifyTradePwd };
+import passwordCheck from './passwordCheck';
+export { phone, sms, setPassword, login, password, tradePwdCheck, setTradePwd, tradeAuth, tradePwd, modifyPwd, oldNewPwd, newTradePwd, modifyTradePwd, passwordCheck };

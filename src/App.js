@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Tab, Pool, Energy, Wallet, Setting, Auth } from './pages';
 import { ProvideStore, useStore } from './Provider';
+import './App.scss';
 
 function PrivateRoute({ authType, component, ...rest }) {
   let store = useStore();
