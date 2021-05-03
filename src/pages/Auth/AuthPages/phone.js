@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Picker, Toast } from 'antd-mobile';
+import { loadAnimate, cancelAnimate } from 'src/imgs/animateBg/load';
 import countries from '../location.json';
 function renderActionButton({ code, phone, authType, setAuthType, next }) {
   if (authType === 'loginSms') {
@@ -46,6 +47,12 @@ function renderActionButton({ code, phone, authType, setAuthType, next }) {
 export default function Phone(props) {
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('86_CN');
+  useEffect(() => {
+    loadAnimate();
+    return function () {
+      cancelAnimate();
+    };
+  }, []);
   const { setAuthType, authType, next } = props;
   return (
     <div>
@@ -80,6 +87,12 @@ export default function Phone(props) {
           placeholder="请输入手机号"
           value={phone}
           onChange={(e) => {
+            if (!phone && e.target.value) {
+              window.bgAnimate && window.bgAnimate();
+            }
+            if (phone && !e.target.value) {
+              window.bgCancelAnimate && window.bgCancelAnimate();
+            }
             setPhone(e.target.value);
           }}
         />
