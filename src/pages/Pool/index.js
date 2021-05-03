@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Toast } from 'antd-mobile';
 import { useHistory } from 'react-router-dom';
 import * as copy from 'copy-to-clipboard';
