@@ -55,7 +55,7 @@ function useAuthStatus(authConfig) {
 export default function Auth(props) {
   const history = useHistory();
   const location = useLocation();
-  const [authType, setAuthType] = useState(location.state.authType || 'loginPwd');
+  const [authType, setAuthType] = useState(_.get(location.state, 'authType') || 'loginPwd');
   const authConfig = authConfigs[authType];
   const { authStatus, authAction, next } = useAuthStatus(authConfig);
   useEffect(() => {

@@ -6,7 +6,7 @@ export default function AssetPage(props) {
       {data.map((item, idx) => {
         const { token, available } = item;
         return (
-          <div className="asset-item">
+          <div className="asset-item" key={idx}>
             <div className="token">{token}</div>
             <div className="header">
               <span>可用</span>

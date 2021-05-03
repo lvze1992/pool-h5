@@ -1,0 +1,16 @@
+.buyPool-history {
+  .scroll-item {
+    .title {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin: 5px 0 10px;
+    }
+    .line {
+      font-size: 12px;
+      line-height: 2;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

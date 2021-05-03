@@ -1,7 +1,7 @@
 //https://reactrouter.com/web/example/sidebar
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import { Tab, Pool, Energy, Wallet, Setting, Auth } from './pages';
+import { Tab, Pool, Energy, Wallet, Setting, Auth, Withdraw, History } from './pages';
 import { ProvideStore, useStore } from './Provider';
 import './App.scss';
 
@@ -35,6 +35,8 @@ function App() {
           <Redirect exact from="/" to="/pool" />
           <Route path="/setting" component={Setting} />
           <Route path="/auth" component={Auth} />
+          <Route path="/withdraw" component={Withdraw} />
+          <Route path="/history/:pageType" component={History} />
           <Switch>
             <Tab>
               <Route path="/pool" component={Pool} />

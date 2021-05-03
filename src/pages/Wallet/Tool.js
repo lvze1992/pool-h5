@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Toast } from 'antd-mobile';
 export default function Tool(props) {
+  const history = useHistory();
   return (
     <div className="tool-page">
       <div
@@ -16,7 +18,12 @@ export default function Tool(props) {
           <span>充币</span>
         </div>
       </div>
-      <div className="tool-item">
+      <div
+        className="tool-item"
+        onClick={() => {
+          history.push('/withdraw');
+        }}
+      >
         <div className="icon">
           <i className="iconfont icon-tixian" />
         </div>
@@ -24,7 +31,12 @@ export default function Tool(props) {
           <span>提币</span>
         </div>
       </div>
-      <div className="tool-item">
+      <div
+        className="tool-item"
+        onClick={() => {
+          history.push('/history/withdraw');
+        }}
+      >
         <div className="icon">
           <i className="iconfont icon-jilu" />
         </div>
