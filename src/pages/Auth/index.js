@@ -17,6 +17,13 @@ import './Auth.scss';
  *                => 输入交易密码 => 验证成功
  *
  */
+const titleMap = {
+  loginSms: '验证码登录',
+  loginPwd: '密码登录',
+  tradeAuth: '交易密码验证',
+  modifyPwd: '修改登录密码',
+  modifyTradePwd: '修改交易密码',
+};
 const authConfigs = {
   loginSms: ['phone', 'sms', 'passwordCheck', { 0: ['setPassword', 'login'], 1: ['login'] }],
   loginPwd: ['phone', 'passwordCheck', { 0: ['setPassword', 'sms', 'login'], 1: ['password', 'login'] }],
@@ -63,8 +70,9 @@ export default function Auth(props) {
   return (
     <div className="auth-page">
       <CustomNav
+        title={titleMap[authType]}
         onLeftClick={() => {
-          history.replace('/');
+          history.goBack();
         }}
       />
       <div className="auth-container">{!!Comp ? <Comp next={next} authStatus={authStatus} authConfig={authConfig} authType={authType} setAuthType={setAuthType} /> : null}</div>

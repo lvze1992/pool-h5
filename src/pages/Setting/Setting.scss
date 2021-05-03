@@ -1,0 +1,28 @@
+.setting-page {
+  .user {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    .iconfont {
+      font-size: 30px;
+      margin-right: 10px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+  .item {
+    background: rgba(118, 209, 249, 0.1);
+    justify-content: space-between;
+    display: flex;
+    line-height: 50px;
+    padding: 0 20px;
+    border-bottom: 1px solid #1f2e39;
+    &:active {
+      background: rgba(118, 209, 249, 0.05);
+    }
+    .iconfont {
+      font-size: 12px;
+    }
+  }
+}

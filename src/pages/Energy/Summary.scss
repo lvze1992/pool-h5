@@ -1,0 +1,68 @@
+.energy-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .summary-page {
+    padding: 20px;
+    background-color: #76d1f917;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    .box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .key {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 10px 0 20px 0;
+      }
+      .value {
+        font-weight: bold;
+        font-size: 18px;
+        &.bigger {
+          font-size: 25px;
+        }
+      }
+    }
+    .line {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  .history-list {
+    padding: 0 20px;
+    &.title {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 20px 0 10px 0;
+      .tip {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+        margin: 0 10px;
+        font-weight: normal;
+      }
+    }
+    &.row,
+    .row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 2;
+      > span {
+        flex: 1;
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+    &.theader {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    &.tbody {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+}
