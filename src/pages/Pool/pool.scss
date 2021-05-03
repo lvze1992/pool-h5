@@ -3,6 +3,19 @@
   .banner {
     overflow: hidden;
     padding: 20px 0;
+    position: relative;
+    &::after {
+      content: '';
+      background-image: url('../../imgs/banner.png');
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: 140%;
+      opacity: 0.4;
+    }
   }
   .box-list {
     display: flex;

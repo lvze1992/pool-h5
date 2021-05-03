@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Toast } from 'antd-mobile';
 import * as copy from 'copy-to-clipboard';
+import { CustomNav } from 'src/components';
 import Info from './Info';
 import qrcode from '../../imgs/qrcode.png';
 import './pool.scss';
@@ -17,6 +18,7 @@ export default class Pool extends Component {
     const { price, weChat } = data;
     return (
       <div className="pool-wrapper">
+        <CustomNav title="加零云矿" icon={null} />
         <div className="banner">
           <h1>CHIA 奇亚币挖矿</h1>
           <h3>全新中本聪共识+BitTorrent创始人+A16z投资</h3>

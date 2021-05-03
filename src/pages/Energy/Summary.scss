@@ -7,6 +7,19 @@
     background-color: #76d1f917;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    position: relative;
+    &::after {
+      content: '';
+      background-image: url('../../imgs/banner.png');
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: 140%;
+      opacity: 0.3;
+    }
     .box {
       display: flex;
       flex-direction: column;
