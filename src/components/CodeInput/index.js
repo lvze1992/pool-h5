@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 export default function CodeInput(props) {
-  const { value, onChange, placeholder } = props;
+  const { value, onChange, placeholder, type } = props;
   const [code, setCode] = useState(value);
   return (
     <div className="input-box code-box">
       <input
         className="custom-input"
-        type="number"
+        type={type || 'number'}
         maxLength="6"
         value={code}
         autoFocus

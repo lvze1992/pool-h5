@@ -18,7 +18,7 @@ async function loginFunc({ authType, store, next, pre, phone, code, pwd, sms }) 
     }
   } catch (e) {
     pre();
-    Toast.info(e.rowMessage || '密码错误');
+    Toast.info(e.rawMessage || '密码错误');
   }
 }
 export default function Login(props) {

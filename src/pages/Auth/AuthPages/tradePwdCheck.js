@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react';
-import { Loading } from '../../../components';
-async function tradePwdCheck() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('0');
-    }, 2000);
-  });
+import { Loading } from 'src/components';
+import Actions from 'src/actions';
+import { Toast } from 'antd-mobile';
+async function tradePwdCheck({ next }) {
+  try {
+    const result = await Actions.hasTradePwd();
+    next({ useCheck: result ? '1' : '0' });
+  } catch (e) {
+    Toast.info(e.rawMessage || '异常: TPC9');
+  }
 }
 export default function TradePwdCheck(props) {
+  const { next } = props;
+  const { tradePwd } = props.authStatus;
   useEffect(() => {
     async function fetchData() {
-      let useCheck = await tradePwdCheck();
-      props.next({ useCheck });
+      await tradePwdCheck({ next, tradePwd });
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps

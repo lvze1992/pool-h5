@@ -1,4 +1,5 @@
 import AV from 'leancloud-storage';
+import Utils from 'src/utils';
 import _ from 'lodash';
 class Actions {
   constructor() {
@@ -46,6 +47,28 @@ class Actions {
       userInfo.set(key, data[key]);
     });
     return await userInfo.save();
+  }
+  async hasTradePwd() {
+    const query = new AV.Query('UserInfo');
+    query.equalTo('user', AV.User.current());
+    query.matches('tradePwd', new RegExp('[a-z]', 'i'));
+    const userInfo = await query.first();
+    return userInfo;
+  }
+  async verifyTradePwd(tradePwd) {
+    const phone = AV.User.current().get('mobilePhoneNumber');
+    const tradePwdEncrypt = Utils.hashIt(tradePwd + phone);
+    const query = new AV.Query('UserInfo');
+    query.equalTo('user', AV.User.current());
+    query.equalTo('tradePwd', tradePwdEncrypt);
+    const userInfo = await query.first();
+    return userInfo;
+  }
+  async modifyTradePwd(tradePwd) {
+    const userInfo = await this.queryUser();
+    const phone = userInfo.get('phone');
+    userInfo.set('tradePwd', Utils.hashIt(tradePwd + phone));
+    await userInfo.save();
   }
 }
 export default new Actions();

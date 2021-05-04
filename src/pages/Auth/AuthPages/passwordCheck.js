@@ -8,7 +8,7 @@ async function passwordCheck({ phone, code, pre }) {
     const userInfo = await Actions.getUserInfo(Utils.formatPhone(phone, code));
     return userInfo.hasPWD ? '1' : '0';
   } catch (e) {
-    Toast.info(e.rowMessage || '异常: PC12');
+    Toast.info(e.rawMessage || '异常: PC12');
     pre();
   }
 }

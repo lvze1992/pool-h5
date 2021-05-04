@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
-import { Button } from 'antd-mobile';
+import Actions from 'src/actions';
+import { Button, Toast } from 'antd-mobile';
+async function checkPwd({ oldPwd, newPwd, newPwd2, next }) {
+  try {
+    await Actions.AV.User.logIn(Actions.AV.User.current().get('mobilePhoneNumber'), oldPwd);
+    next({
+      oldPwd,
+      newPwd,
+      newPwd2,
+    });
+  } catch (e) {
+    Toast.info(e.rawMessage || '旧密码错误');
+  }
+}
 export default function Password(props) {
   const [oldPwd, setOldPwd] = useState('');
   const [newPwd, setNewPwd] = useState('');
   const [newPwd2, setNewPwd2] = useState('');
+  const { next } = props;
   return (
     <div>
       <div className="input-box">
@@ -42,12 +56,8 @@ export default function Password(props) {
       <Button
         type="primary"
         disabled={!(newPwd === newPwd2 && oldPwd.length >= 8 && newPwd.length >= 8)}
-        onClick={() => {
-          props.next({
-            oldPwd,
-            newPwd,
-            newPwd2,
-          });
+        onClick={async () => {
+          checkPwd({ oldPwd, newPwd, newPwd2, next });
         }}
       >
         下一步

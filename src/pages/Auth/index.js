@@ -27,7 +27,7 @@ const titleMap = {
 const authConfigs = {
   loginSms: ['phone', 'sms', '_passwordCheck', { 0: ['setPassword', '_login'], 1: ['_login'] }],
   loginPwd: ['phone', '_passwordCheck', { 0: ['setPassword', 'sms', '_login'], 1: ['password', '_login'] }],
-  tradeAuth: ['_tradePwdCheck', { 0: ['setTradePwd', 'sms', '_tradeAuth'], 1: ['tradePwd', '_tradeAuth'] }],
+  tradeAuth: ['_tradePwdCheck', { 0: ['setTradePwd', 'sms', '_modifyTradePwd', 'tradePwd', '_tradeAuth'], 1: ['tradePwd', '_tradeAuth'] }],
   modifyPwd: ['oldNewPwd', 'sms', '_modifyPwd'],
   modifyTradePwd: ['newTradePwd', 'sms', '_modifyTradePwd'],
 };
@@ -70,7 +70,7 @@ export default function Auth(props) {
   useEffect(() => {
     if (authStatus.result) {
       //校验通过，跳回原页面 & 回调
-      history.replace(_.get(location, 'state.from', '/'));
+      history.replace(_.get(location, 'state.to') || _.get(location, 'state.from', '/'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authStatus.result]);

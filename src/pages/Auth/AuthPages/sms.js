@@ -7,8 +7,8 @@ import { CodeInput } from '../../../components';
 let timer = null;
 async function sendSmsCode({ authType, phone, code, setRemain }) {
   try {
-    if (['loginSms', 'loginPwd'].includes(authType)) {
-      // await Actions.AV.Cloud.requestSmsCode(Utils.formatPhone(phone, code));
+    if (['loginSms', 'loginPwd', 'modifyPwd', 'modifyTradePwd', 'tradeAuth'].includes(authType)) {
+      await Actions.AV.Cloud.requestSmsCode(Utils.formatPhone(phone, code));
     }
     setRemain(60);
     clearInterval(timer);
@@ -37,6 +37,9 @@ async function verifySmsCode({ authType, next, store, sms, phone, code, pwd }) {
       await Actions.setUserInfo({ hasPWD: true });
       store.signin(user.toJSON());
       // Actions.AV.Cloud.verifySmsCode(sms, Utils.formatPhone(phone, code));
+    } else {
+      const user = await Actions.getUserInfo();
+      await Actions.AV.Cloud.verifySmsCode(sms, user.phone);
     }
     next({});
   } catch (e) {
