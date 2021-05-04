@@ -1,28 +1,36 @@
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Toast } from 'antd-mobile';
-import _ from 'lodash';
-import { useStore } from '../../../Provider';
-import { Loading } from '../../../components';
-async function login(phone, pwd, sms) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ user: { a: 1 } });
-    }, 2000);
-  });
+import Actions from 'src/actions';
+import { useStore } from 'src/Provider';
+import Utils from 'src/utils';
+import { Loading } from 'src/components';
+async function loginFunc({ authType, store, next, pre, phone, code, pwd, sms }) {
+  try {
+    if (authType === 'loginSms') {
+      Toast.info('登录成功');
+      next({ result: true });
+    } else if (authType === 'loginPwd') {
+      const user = await Actions.AV.User.logInWithMobilePhone(Utils.formatPhone(phone, code), pwd);
+      Toast.info('登录成功');
+      store.signin(user.toJSON());
+      next({ result: true });
+    }
+  } catch (e) {
+    pre();
+    Toast.info(e.rowMessage || '密码错误');
+  }
 }
 export default function Login(props) {
-  const { phone, pwd, sms } = props.authStatus;
+  const { authType, next, pre } = props;
+  const { phone, code, pwd, sms } = props.authStatus;
   const location = useLocation();
   const history = useHistory();
   let store = useStore();
 
   useEffect(() => {
     async function fetchData() {
-      let user = await login(phone, pwd, sms);
-      store.signin(user);
-      Toast.info('登录成功');
-      props.next({ user, result: true });
+      await loginFunc({ authType, store, next, pre, phone, code, pwd, sms });
     }
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps

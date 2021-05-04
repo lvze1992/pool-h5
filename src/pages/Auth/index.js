@@ -25,11 +25,11 @@ const titleMap = {
   modifyTradePwd: '修改交易密码',
 };
 const authConfigs = {
-  loginSms: ['phone', 'sms', 'passwordCheck', { 0: ['setPassword', 'login'], 1: ['login'] }],
-  loginPwd: ['phone', 'passwordCheck', { 0: ['setPassword', 'sms', 'login'], 1: ['password', 'login'] }],
-  tradeAuth: ['tradePwdCheck', { 0: ['setTradePwd', 'sms', 'tradeAuth'], 1: ['tradePwd', 'tradeAuth'] }],
-  modifyPwd: ['oldNewPwd', 'sms', 'modifyPwd'],
-  modifyTradePwd: ['newTradePwd', 'sms', 'modifyTradePwd'],
+  loginSms: ['phone', 'sms', '_passwordCheck', { 0: ['setPassword', '_login'], 1: ['_login'] }],
+  loginPwd: ['phone', '_passwordCheck', { 0: ['setPassword', 'sms', '_login'], 1: ['password', '_login'] }],
+  tradeAuth: ['_tradePwdCheck', { 0: ['setTradePwd', 'sms', '_tradeAuth'], 1: ['tradePwd', '_tradeAuth'] }],
+  modifyPwd: ['oldNewPwd', 'sms', '_modifyPwd'],
+  modifyTradePwd: ['newTradePwd', 'sms', '_modifyTradePwd'],
 };
 function useAuthStatus(authConfig) {
   const [authStatus, setAuthStatus] = useState({ result: false });
@@ -50,6 +50,15 @@ function useAuthStatus(authConfig) {
       }
       setNext([].concat(...nextStep).join('.'));
     },
+    pre: () => {
+      let lastPoint = Number(step.split('.').slice(-1)[0]) - 1;
+      let preStep = lastPoint >= 0 ? [...step.split('.').slice(0, -1), lastPoint].join('.') : step.split('.').slice(0, -1).join('.');
+      while (_.get(authConfig, preStep).includes('_') && Number(preStep) !== 0) {
+        lastPoint = Number(preStep.split('.').slice(-1)[0]) - 1;
+        preStep = lastPoint >= 0 ? [...preStep.split('.').slice(0, -1), lastPoint].join('.') : preStep.split('.').slice(0, -1).join('.');
+      }
+      setNext(preStep);
+    },
   };
 }
 export default function Auth(props) {
@@ -57,7 +66,7 @@ export default function Auth(props) {
   const location = useLocation();
   const [authType, setAuthType] = useState(_.get(location.state, 'authType') || 'loginPwd');
   const authConfig = authConfigs[authType];
-  const { authStatus, authAction, next } = useAuthStatus(authConfig);
+  const { authStatus, authAction, next, pre } = useAuthStatus(authConfig);
   useEffect(() => {
     if (authStatus.result) {
       //校验通过，跳回原页面 & 回调
@@ -75,7 +84,7 @@ export default function Auth(props) {
           history.replace('/');
         }}
       />
-      <div className="auth-container">{!!Comp ? <Comp next={next} authStatus={authStatus} authConfig={authConfig} authType={authType} setAuthType={setAuthType} /> : null}</div>
+      <div className="auth-container">{!!Comp ? <Comp next={next} pre={pre} authStatus={authStatus} authConfig={authConfig} authType={authType} setAuthType={setAuthType} /> : null}</div>
     </div>
   );
 }
