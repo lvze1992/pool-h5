@@ -4,7 +4,7 @@ const StoreContext = createContext();
 function useProvideStore() {
   const currentUser = Actions.AV.User.current();
   const [user, setUser] = useState(currentUser ? currentUser.toJSON() : null);
-  console.log('user', user);
+  console.log('user', user, Actions.AV);
 
   const signin = (user, cb) => {
     setUser(user);
