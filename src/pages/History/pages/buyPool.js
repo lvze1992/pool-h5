@@ -1,33 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
+import Actions from 'src/actions';
 import Util from 'src/utils';
+import { Toast } from 'antd-mobile';
 import './buyPool.scss';
-
 const title = '购买记录';
-const history = _.fill(new Array(200), {
-  name: 'Chia云算力',
-  price: '80 USDT/1T',
-  startTime: 12113123132,
-  endTime: 12113123132,
-});
+async function fetchData() {
+  try {
+    const chiaUserBuy = await Actions.getChiaUserBuy();
+    return chiaUserBuy;
+  } catch (e) {
+    Toast.info(e.rawMessage || '异常：BP20');
+    return [];
+  }
+}
 function Comp() {
+  const [historyData, setHistoryData] = useState([]);
+  useEffect(() => {
+    (async function () {
+      const historyData = await fetchData();
+      setHistoryData(historyData);
+    })();
+  }, []);
   return (
     <div className="scroll-list buyPool-history">
-      {history.map((item, idx) => {
-        const { name, price, startTime, endTime } = item;
+      {historyData.map((item, idx) => {
+        const { name, buyPowerCost, buyPower, startDate, endDate } = item;
         return (
           <div key={idx} className="scroll-item">
             <div className="title">
-              <span>{name}</span>
-              <span>{price}</span>
+              <span>{name || 'Chia云算力'}</span>
+              <span>{Util.calc(`${buyPowerCost}/${buyPower}`)} USDT/1T</span>
             </div>
             <div className="line">
               <span>生效时间</span>
-              <span>{Util.dateFormat(startTime)}</span>
+              <span>{startDate}</span>
             </div>
             <div className="line">
               <span>到期时间</span>
-              <span>{Util.dateFormat(endTime)}</span>
+              <span>{endDate}</span>
             </div>
           </div>
         );

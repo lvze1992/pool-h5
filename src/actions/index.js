@@ -16,8 +16,10 @@ class Actions {
    */
   async queryUser(phone) {
     if (phone) {
+      const user = new AV.Query('User');
+      user.equalTo('mobilePhoneNumber', phone);
       const query = new AV.Query('UserInfo');
-      query.equalTo('phone', phone);
+      query.matchesQuery('user', user);
       const userInfo = await query.first();
       return userInfo;
     } else {
@@ -69,6 +71,30 @@ class Actions {
     const phone = userInfo.get('phone');
     userInfo.set('tradePwd', Utils.hashIt(tradePwd + phone));
     await userInfo.save();
+  }
+  /**
+   * 收益记录
+   */
+  async getChiaUserProfitList() {
+    const query = new AV.Query('ChiaUserProfitList');
+    query.descending('date');
+    query.equalTo('user', AV.User.current());
+    const data = await query.find();
+    return data.map((i) => {
+      return i.toJSON();
+    });
+  }
+  /**
+   * 购买记录
+   */
+  async getChiaUserBuy() {
+    const query = new AV.Query('ChiaUserBuy');
+    query.descending('date');
+    query.equalTo('user', AV.User.current());
+    const data = await query.find();
+    return data.map((i) => {
+      return i.toJSON();
+    });
   }
 }
 export default new Actions();

@@ -2,15 +2,15 @@ import React from 'react';
 const columns = [
   {
     title: '日期',
-    value: 'time',
+    value: 'date',
   },
   {
     title: '有效算力/T',
-    value: 'avaPower',
+    value: 'availablePower',
   },
   {
     title: '当日收益/XCH',
-    value: 'profit',
+    value: 'todayProfit',
   },
 ];
 export default function History(props) {
@@ -28,7 +28,7 @@ export default function History(props) {
     <div className="history-list tbody" key="tbody">
       {data.map((dataItem, idx) => {
         return (
-          <div className="row">
+          <div className="row" key={idx}>
             {columns.map((item) => {
               const { value } = item;
               return <span key={value}>{dataItem[value] || '-'}</span>;
