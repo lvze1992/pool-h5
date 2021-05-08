@@ -6,15 +6,18 @@ function useProvideStore() {
   const [user, setUser] = useState(currentUser ? currentUser.toJSON() : null);
   const [chiaConfig, setChiaConfig] = useState({});
   const [tokens, setTokens] = useState([]);
+  const [price, setPrice] = useState({});
   // const [hasTradePwd, setHasTradePwd] = useState('');
   console.log('user', user, Actions.AV);
   useEffect(() => {
     (async function () {
       const chiaConfig = await Actions.getChiaConfig();
       const tokens = await Actions.getTokens();
+      const price = await Actions.getPrice({});
       // const hasTradePwd = await Actions.hasTradePwd();
       setChiaConfig(chiaConfig);
       setTokens(tokens);
+      setPrice(price);
       // setHasTradePwd(hasTradePwd);
     })();
   }, []);
@@ -34,6 +37,7 @@ function useProvideStore() {
     chia: {
       chiaConfig,
     },
+    price,
     tokens,
     signin,
     signout,

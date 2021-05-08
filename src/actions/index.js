@@ -30,6 +30,30 @@ class Actions {
       return i.toJSON();
     });
   }
+  async getPrice() {
+    const query = new AV.Query('Price');
+    query.include('token');
+    const data = await query.find();
+    const priceList = data
+      .map((i) => {
+        const {
+          convert,
+          convertToken,
+          token: { token },
+        } = i.toJSON();
+        return {
+          convert,
+          convertToken,
+          token,
+        };
+      })
+      .reduce((pre, cur) => {
+        const { convert, convertToken, token } = cur;
+        pre[token] = `${convert} ${convertToken}`;
+        return pre;
+      }, {});
+    return priceList;
+  }
   /**
    * 用户
    */
@@ -121,10 +145,12 @@ class Actions {
   async getUserAssetList(token) {
     const query = new AV.Query('UserAsset');
     const query2 = new AV.Query('UserWithdraw');
-    query.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
+    if (token) {
+      query.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
+      query2.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
+    }
     query.equalTo('user', AV.User.current());
     query.include('token');
-    query2.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
     query2.equalTo('user', AV.User.current());
     query2.equalTo('status', 'doing');
     query2.include('token');

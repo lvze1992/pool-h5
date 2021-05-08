@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CustomNav } from 'src/components';
+import { useStore } from 'src/Provider';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
 import Utils from 'src/utils';
@@ -9,38 +10,47 @@ import Summary from './Summary';
 import Tool from './Tool';
 import AssetPage from './AssetPage';
 import './Wallet.scss';
-const summary = {
-  total: '--',
-  unit: 'USDT',
-};
-async function fetchData() {
+async function fetchData(price) {
   try {
-    const chiaUserProfitList = await Actions.getChiaUserProfitList();
-    return chiaUserProfitList;
+    const assetList = await Actions.getUserAssetList();
+    const asset = Utils.calcAssetSummary(assetList);
+    const assetsList = Object.keys(asset).map((i) => {
+      const { available, token } = asset[i];
+      const priceConvert = parseFloat(price[token]);
+      return {
+        available,
+        token,
+        convert: priceConvert ? Utils.calc(`${available} * ${priceConvert}`) : '-',
+      };
+    });
+    const total = assetsList.reduce((pre, { convert }) => {
+      return _.isNaN(+convert) ? '-' : Utils.calc(`${convert} + ${pre}`);
+    }, 0);
+    return {
+      assetsList,
+      summary: {
+        total,
+        unit: 'USDT',
+      },
+    };
   } catch (e) {
     Toast.info(e.rawMessage || '异常：W29');
     return [];
   }
 }
-function calcAssets(list) {
-  const uniqList = _.uniqBy(list, function (o) {
-    return o.chiaUserBuy.objectId;
-  });
-  const totalProfit = uniqList.reduce((pre, cur) => {
-    return Utils.calc(`${pre} + ${cur.totalProfit}`);
-  }, 0);
-  return [{ available: totalProfit, token: 'XCH' }];
-}
 export default function Wallet() {
   const history = useHistory();
+  const store = useStore();
   const [assets, setAsset] = useState([]);
+  const [summary, setSummary] = useState({});
   useEffect(() => {
     (async function () {
-      const historyData = await fetchData();
-      const assets = calcAssets(historyData);
-      setAsset(assets);
+      const { assetsList, summary } = await fetchData(store.price);
+      setAsset(assetsList);
+      setSummary(summary);
     })();
-  }, []);
+  }, [store.price]);
+
   return (
     <div className="wallet-wrapper">
       <CustomNav
