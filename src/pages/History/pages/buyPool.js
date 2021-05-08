@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 import Actions from 'src/actions';
-import Util from 'src/utils';
 import { Toast } from 'antd-mobile';
 import './buyPool.scss';
 const title = '购买记录';

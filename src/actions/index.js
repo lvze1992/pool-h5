@@ -126,9 +126,23 @@ class Actions {
     query.include('token');
     query2.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
     query2.equalTo('user', AV.User.current());
+    query2.equalTo('status', 'doing');
     query2.include('token');
     const data = await Promise.all([query.find(), query2.find()]);
     return [].concat(...data).map((i) => {
+      return i.toJSON();
+    });
+  }
+  /**
+   * 获取用户提现记录
+   */
+  async getWithdrawHistory() {
+    const query = new AV.Query('UserWithdraw');
+    query.equalTo('user', AV.User.current());
+    query.include('token');
+    query.descending('createdAt');
+    const data = await query.find();
+    return data.map((i) => {
       return i.toJSON();
     });
   }
