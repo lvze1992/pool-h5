@@ -1,15 +1,56 @@
-import React, { useState } from 'react';
-import { Button } from 'antd-mobile';
+import React, { useState, useEffect } from 'react';
+import { Button, Toast } from 'antd-mobile';
+import { useHistory, useLocation } from 'react-router-dom';
+import _ from 'lodash';
 import { CustomNav } from 'src/components';
+import { useStore } from 'src/Provider';
+import Utils from 'src/utils';
+import Actions from 'src/actions';
 import './Withdraw.scss';
-const data = {
-  token: 'XCH',
-  available: '23.23',
-};
+const token = 'XCH';
+async function fetchAsset(store) {
+  const curToken = store.tokens.filter((i) => i.token === token)[0];
+  const assetList = await Actions.getUserAssetList(curToken);
+  const asset = Utils.calcAssetSummary(assetList);
+  return asset[token];
+}
+export async function submitWithdraw({ address, amount, withdrawFee, token, location, history }) {
+  try {
+    await Actions.addressLimit({ address, token });
+    await Actions.availableLimit('UserAsset', { total: amount, withdrawFee, token });
+    history.replace('/auth', {
+      authType: 'tradeAuth',
+      from: location,
+      withdrawParams: {
+        address,
+        amount,
+        withdrawFee,
+        token,
+      },
+    });
+  } catch (e) {
+    Toast.info(e.rawMessage || '异常：W21');
+  }
+}
 export default function Withdraw() {
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState('');
-  const { token, available } = data;
+  const store = useStore();
+  const [asset, setAsset] = useState({});
+  const history = useHistory();
+  const location = useLocation();
+  useEffect(() => {
+    (async function () {
+      if (_.isEmpty(store.tokens)) {
+        return;
+      }
+      let asset = await fetchAsset(store);
+      setAsset(asset);
+    })();
+  }, [store.tokens]);
+
+  const { available } = asset;
+  const { withdrawFee } = _.get(store, 'chia.chiaConfig', {});
 
   return (
     <div className="withdraw-page">
@@ -45,20 +86,42 @@ export default function Withdraw() {
               setAmount(e.target.value);
             }}
           />
-          <div className="action-button">全部</div>
+          <div
+            className="action-button"
+            onClick={() => {
+              setAmount(available || '');
+            }}
+          >
+            全部
+          </div>
         </div>
         <div className="available-tip">
-          <span>{`可用: ${available}`}</span>
+          <span>{`可用: ${available || '-'}`}</span>
         </div>
         <div className="title">
           <span>手续费</span>
         </div>
         <div className="fee-box">
-          <span>0</span>
+          <span>{withdrawFee || '-'}</span>
           <span>XCH</span>
         </div>
         <div className="tip">提币处理时间为每日9:00-23:00，请耐心等待</div>
-        <Button type="primary">提币</Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            const curToken = store.tokens.filter((i) => i.token === token)[0];
+            submitWithdraw({
+              address,
+              amount,
+              withdrawFee,
+              token: curToken,
+              location,
+              history,
+            });
+          }}
+        >
+          提币
+        </Button>
       </div>
     </div>
   );

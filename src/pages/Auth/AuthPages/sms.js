@@ -8,7 +8,7 @@ let timer = null;
 async function sendSmsCode({ authType, phone, code, setRemain }) {
   try {
     if (['loginSms', 'loginPwd', 'modifyPwd', 'modifyTradePwd', 'tradeAuth'].includes(authType)) {
-      await Actions.AV.Cloud.requestSmsCode(Utils.formatPhone(phone, code));
+      await Actions.AV.Cloud.requestSmsCode(phone ? Utils.formatPhone(phone, code) : Actions.AV.User.current().get('mobilePhoneNumber'));
     }
     setRemain(60);
     clearInterval(timer);
@@ -96,7 +96,7 @@ export default function Sms(props) {
           });
         }}
       >
-        登录
+        {authType.includes('login') ? '登录' : '确定'}
       </Button>
     </div>
   );

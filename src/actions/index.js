@@ -12,6 +12,25 @@ class Actions {
     this.AV = AV;
   }
   /**
+   * chia 每日算力
+   */
+  async getChiaConfig() {
+    try {
+      const query = new AV.Query('ChiaWork');
+      const r = await query.first();
+      return r ? r.toJSON() : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  async getTokens() {
+    const query = new AV.Query('token');
+    const data = await query.find();
+    return data.map((i) => {
+      return i.toJSON();
+    });
+  }
+  /**
    * 用户
    */
   async queryUser(phone) {
@@ -95,6 +114,63 @@ class Actions {
     return data.map((i) => {
       return i.toJSON();
     });
+  }
+  /**
+   * 获取用户资产
+   */
+  async getUserAssetList(token) {
+    const query = new AV.Query('UserAsset');
+    const query2 = new AV.Query('UserWithdraw');
+    query.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
+    query.equalTo('user', AV.User.current());
+    query.include('token');
+    query2.equalTo('token', AV.Object.createWithoutData('token', token.objectId));
+    query2.equalTo('user', AV.User.current());
+    query2.include('token');
+    const data = await Promise.all([query.find(), query2.find()]);
+    return [].concat(...data).map((i) => {
+      return i.toJSON();
+    });
+  }
+  /**
+   * 提交提现申请
+   */
+  async submitWithdraw({ address, amount, withdrawFee, token }) {
+    await this.addressLimit({ address, token });
+    await this.availableLimit('UserAsset', { total: amount, withdrawFee, token });
+    const query = new AV.Object('UserWithdraw');
+    query.set('token', AV.Object.createWithoutData('token', token.objectId));
+    query.set('user', AV.User.current());
+    query.set('address', address);
+    query.set('withdrawFee', withdrawFee);
+    query.set('lock', Utils.formatAmount(amount, token.precision));
+    return await query.save();
+  }
+  // 提现地址校验
+  async addressLimit({ address }) {
+    const reg = RegExp(/^xch[a-z0-9]{59}$/);
+    if (!reg.test(address)) {
+      // eslint-disable-next-line no-throw-literal
+      throw { rawMessage: '提现地址不规范' };
+    }
+  }
+
+  // 提现数量校验
+  async availableLimit(table, limit) {
+    const { total, withdrawFee, token } = limit;
+    const assetList = await this.getUserAssetList(token);
+    const asset = Utils.calcAssetSummary(assetList);
+    const available = asset[token.token].available || 0;
+    if (!total || _.isNaN(Number(total))) {
+      // eslint-disable-next-line no-throw-literal
+      throw { rawMessage: '请输入正确的提现数量' };
+    } else if (+available < +total) {
+      // eslint-disable-next-line no-throw-literal
+      throw { rawMessage: '可用不足' };
+    } else if (+total <= +withdrawFee) {
+      // eslint-disable-next-line no-throw-literal
+      throw { rawMessage: '提现数量不可低于手续费' };
+    }
   }
 }
 export default new Actions();

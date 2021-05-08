@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { Toast } from 'antd-mobile';
 import Actions from 'src/actions';
+import { useStore } from 'src/Provider';
 import { Loading } from 'src/components';
-async function modifyTradePwd({ pre, next, tradePwd, authType }) {
+async function modifyTradePwd({ pre, next, tradePwd, authType, store }) {
   try {
     await Actions.modifyTradePwd(tradePwd);
+    store.setHasTradePwd(true);
     if (authType === 'tradeAuth') {
       next({});
     } else {
@@ -19,6 +21,7 @@ async function modifyTradePwd({ pre, next, tradePwd, authType }) {
 export default function ModifyTradePwd(props) {
   const { pre, next, authType } = props;
   const { tradePwd } = props.authStatus;
+  const store = useStore();
   useEffect(() => {
     async function fetchData() {
       await modifyTradePwd({
@@ -26,6 +29,7 @@ export default function ModifyTradePwd(props) {
         next,
         tradePwd,
         authType,
+        store,
       });
     }
     fetchData();

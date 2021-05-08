@@ -1,11 +1,23 @@
-import React, { useContext, createContext, useState } from 'react';
+import React, { useContext, createContext, useState, useEffect } from 'react';
 import Actions from 'src/actions';
 const StoreContext = createContext();
 function useProvideStore() {
   const currentUser = Actions.AV.User.current();
   const [user, setUser] = useState(currentUser ? currentUser.toJSON() : null);
+  const [chiaConfig, setChiaConfig] = useState({});
+  const [tokens, setTokens] = useState([]);
+  // const [hasTradePwd, setHasTradePwd] = useState('');
   console.log('user', user, Actions.AV);
-
+  useEffect(() => {
+    (async function () {
+      const chiaConfig = await Actions.getChiaConfig();
+      const tokens = await Actions.getTokens();
+      // const hasTradePwd = await Actions.hasTradePwd();
+      setChiaConfig(chiaConfig);
+      setTokens(tokens);
+      // setHasTradePwd(hasTradePwd);
+    })();
+  }, []);
   const signin = (user, cb) => {
     setUser(user);
     cb && cb();
@@ -19,6 +31,10 @@ function useProvideStore() {
 
   return {
     user,
+    chia: {
+      chiaConfig,
+    },
+    tokens,
     signin,
     signout,
   };

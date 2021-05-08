@@ -30,7 +30,7 @@ function Comp() {
           <div key={idx} className="scroll-item">
             <div className="title">
               <span>{name || 'Chia云算力'}</span>
-              <span>{Util.calc(`${buyPowerCost}/${buyPower}`)} USDT/1T</span>
+              <span>{`${buyPowerCost} USDT / ${buyPower} T`}</span>
             </div>
             <div className="line">
               <span>生效时间</span>

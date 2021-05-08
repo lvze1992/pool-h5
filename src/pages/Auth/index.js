@@ -81,7 +81,8 @@ export default function Auth(props) {
       <CustomNav
         title={titleMap[authType]}
         onLeftClick={() => {
-          history.replace('/');
+          const callback = _.get(location.state, 'callback');
+          callback ? callback() : history.replace('/');
         }}
       />
       <div className="auth-container">{!!Comp ? <Comp next={next} pre={pre} authStatus={authStatus} authConfig={authConfig} authType={authType} setAuthType={setAuthType} /> : null}</div>
