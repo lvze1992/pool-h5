@@ -45,11 +45,11 @@ export default function Withdraw() {
         return;
       }
       let asset = await fetchAsset(store);
-      setAsset(asset);
+      setAsset(asset || {});
     })();
   }, [store.tokens]);
 
-  const { available } = asset;
+  const { available = '-' } = asset;
   const { withdrawFee } = _.get(store, 'chia.chiaConfig', {});
 
   return (
