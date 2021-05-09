@@ -23,6 +23,22 @@ function calcSummary(list) {
   }, 0);
   return { totalProfit, availablePower, waitpPower };
 }
+function calcMergeDay(historyData) {
+  const merged = historyData.reduce((pre, { date, availablePower, todayProfit }) => {
+    if (pre[date]) {
+      const { availablePower: _availablePower, todayProfit: _todayProfit } = pre[date];
+      pre[date] = { date, availablePower: Utils.calc(`${availablePower} + ${_availablePower}`), todayProfit: Utils.calc(`${todayProfit} + ${_todayProfit}`) };
+    } else {
+      pre[date] = { date, availablePower, todayProfit };
+    }
+    return pre;
+  }, {});
+  return _.orderBy(
+    Object.keys(merged).map((i) => merged[i]),
+    ['date'],
+    ['desc'],
+  );
+}
 async function fetchData() {
   try {
     const chiaUserProfitList = await Actions.getChiaUserProfitList();
@@ -40,7 +56,8 @@ export default function Energy(props) {
     (async function () {
       const historyData = await fetchData();
       const summary = calcSummary(historyData);
-      setHistoryData(historyData);
+      const historyList = calcMergeDay(historyData);
+      setHistoryData(historyList);
       setSummary(summary);
     })();
   }, []);

@@ -6,7 +6,7 @@ export function dateFormat(time) {
     return '-';
   }
   if (_.isNaN(+time)) {
-    return moment().format(DATE_FORMAT);
+    return moment(time).format(DATE_FORMAT);
   }
   return moment(+time).format(DATE_FORMAT);
 }

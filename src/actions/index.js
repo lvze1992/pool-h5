@@ -212,5 +212,6 @@ class Actions {
       throw { rawMessage: '提现数量不可低于手续费' };
     }
   }
+  
 }
 export default new Actions();

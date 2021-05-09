@@ -1,4 +1,5 @@
 import React from 'react';
+import Utils from 'src/utils';
 const columns = [
   {
     title: '日期',
@@ -7,10 +8,16 @@ const columns = [
   {
     title: '有效算力/T',
     value: 'availablePower',
+    render: (v) => {
+      return Utils.cutNumber(v, 6);
+    },
   },
   {
     title: '当日收益/XCH',
     value: 'todayProfit',
+    render: (v) => {
+      return Utils.cutNumber(v, 6);
+    },
   },
 ];
 export default function History(props) {
@@ -30,8 +37,8 @@ export default function History(props) {
         return (
           <div className="row" key={idx}>
             {columns.map((item) => {
-              const { value } = item;
-              return <span key={value}>{dataItem[value] || '-'}</span>;
+              const { value, render } = item;
+              return <span key={value}>{render ? render(dataItem[value]) : dataItem[value] || '-'}</span>;
             })}
           </div>
         );
