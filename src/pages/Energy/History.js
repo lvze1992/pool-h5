@@ -24,7 +24,7 @@ export default function History(props) {
   const { data } = props;
   return [
     <div className="history-list title" key="title">
-      收益记录<span className="tip">(仅显示最近15天记录)</span>
+      收益记录<span className="tip"></span>
     </div>,
     <div className="history-list row theader" key="theader">
       {columns.map((item) => {

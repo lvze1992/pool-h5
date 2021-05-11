@@ -80,7 +80,7 @@ export default function Withdraw() {
           <input
             type="number"
             className="custom-input"
-            placeholder="输入或长按粘贴地址"
+            placeholder="请输入数量"
             value={amount}
             onChange={(e) => {
               setAmount(e.target.value);

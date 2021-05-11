@@ -43,7 +43,7 @@ function Comp() {
                 <span className="key">数量</span>
                 <span className="value">{Util.calc(`${lock} / 10 ^ ${precision} - ${withdrawFee}`)}</span>
               </div>
-              <div className="box">
+              <div className="box" style={{ flex: 0.5 }}>
                 <span className="key">状态</span>
                 <span className="value">{statusMap[status] || '-'}</span>
               </div>
