@@ -1,0 +1,65 @@
+.pool-wrapper {
+  text-align: center;
+  .banner {
+    overflow: hidden;
+    padding: 20px 0;
+    position: relative;
+    &::after {
+      content: '';
+      background-image: url('../../../imgs/banner.png');
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: 140%;
+      opacity: 0.4;
+      background-repeat: no-repeat;
+    }
+  }
+  .box-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    .box {
+      line-height: 1.5;
+      flex: 1;
+      span {
+        display: block;
+      }
+    }
+  }
+  .price-box {
+    padding: 10px 20px 20px;
+    line-height: 1.5;
+    .price-key {
+    }
+    .price-value {
+      font-weight: bold;
+      font-size: 25px;
+      color: #fde751;
+      display: block;
+      border: 1px solid #fde751;
+      margin: 15px 26px 0;
+      height: 53px;
+      line-height: 49px;
+      border-radius: 2px;
+      background-color: #fde7510f;
+      .unit {
+        font-size: 14px;
+        padding: 0 5px;
+      }
+    }
+    .am-button {
+      margin: 20px 26px 0;
+    }
+  }
+  .qrcode {
+    padding: 0 20px;
+    img {
+      width: 150px;
+    }
+  }
+}

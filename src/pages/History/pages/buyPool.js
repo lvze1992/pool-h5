@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Actions from 'src/actions';
 import { Toast } from 'antd-mobile';
+import { EmptyList } from 'src/components';
+import _ from 'lodash';
 import './buyPool.scss';
 const title = '购买记录';
 async function fetchData() {
@@ -41,6 +43,7 @@ function Comp() {
           </div>
         );
       })}
+      {_.isEmpty(historyData) ? <EmptyList /> : null}
     </div>
   );
 }

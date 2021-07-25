@@ -1,8 +1,10 @@
-.pool-wrapper {
-  text-align: center;
-  .banner {
-    overflow: hidden;
-    padding: 20px 0;
+.pool-list {
+  overflow: hidden;
+  .pool-item {
+    margin: 20px 10px 20px;
+    padding: 20px 15px;
+    border-radius: 5px;
+    border: 1px solid #dddddd33;
     position: relative;
     &::after {
       content: '';
@@ -13,53 +15,58 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background-size: 140%;
+      background-size: cover;
       opacity: 0.4;
       background-repeat: no-repeat;
     }
-  }
-  .box-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    .box {
-      line-height: 1.5;
-      flex: 1;
-      span {
-        display: block;
+    .header {
+      margin-bottom: 20px;
+      display: flex;
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .icons {
+        .icon-huo {
+          color: #ef8e4d;
+          margin-left: 5px;
+        }
+      }
+      margin-bottom: 20px;
+    }
+    .body {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      .box {
+        letter-spacing: 1px;
+        .key {
+          margin-bottom: 10px;
+          font-size: 10px;
+          color: #ffffff80;
+        }
+        .price {
+          font-size: 18px;
+          font-weight: bold;
+          margin-right: 5px;
+        }
+        .rate {
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .unit {
+        }
       }
     }
-  }
-  .price-box {
-    padding: 10px 20px 20px;
-    line-height: 1.5;
-    .price-key {
-    }
-    .price-value {
-      font-weight: bold;
-      font-size: 25px;
-      color: #fde751;
-      display: block;
-      border: 1px solid #fde751;
-      margin: 15px 26px 0;
-      height: 53px;
-      line-height: 49px;
-      border-radius: 2px;
-      background-color: #fde7510f;
-      .unit {
+    .action {
+      display: flex;
+      justify-content: space-between;
+      .am-button {
+        width: 49%;
         font-size: 14px;
-        padding: 0 5px;
+        height: 40px;
+        line-height: 40px;
       }
-    }
-    .am-button {
-      margin: 20px 26px 0;
-    }
-  }
-  .qrcode {
-    padding: 0 20px;
-    img {
-      width: 150px;
     }
   }
 }

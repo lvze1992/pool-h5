@@ -33,15 +33,16 @@ function App() {
       <Router>
         <Switch>
           <Redirect exact from="/" to="/pool" />
-          <PrivateRoute path="/setting" component={Setting} />
           <Route path="/auth" component={Auth} />
+          <PrivateRoute path="/pool/:id" component={Pool} />
+          <PrivateRoute path="/energy" component={Energy} />
           <PrivateRoute path="/withdraw" component={Withdraw} />
           <PrivateRoute path="/history/:pageType" component={History} />
           <Switch>
             <Tab>
               <Route path="/pool" component={Pool} />
-              <PrivateRoute path="/energy" component={Energy} />
               <PrivateRoute path="/wallet" component={Wallet} />
+              <PrivateRoute path="/setting" component={Setting} />
             </Tab>
           </Switch>
         </Switch>

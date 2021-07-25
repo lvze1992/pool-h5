@@ -21,6 +21,11 @@ const tabConigs = {
     icon: <i className="iconfont icon-qianbao4" />,
     selectedIcon: <i className="iconfont icon-qianbao4" />,
   },
+  '/setting': {
+    title: '我的',
+    icon: <i className="iconfont icon-shigongrenyuan" />,
+    selectedIcon: <i className="iconfont icon-shigongrenyuan" />,
+  },
 };
 export default function Tab(props) {
   const location = useLocation();

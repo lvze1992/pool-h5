@@ -1,0 +1,32 @@
+.info-box {
+  padding: 20px;
+  li {
+    list-style: none;
+  }
+  .line {
+    justify-content: space-between;
+    line-height: 2.5;
+    display: flex;
+    .key {
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .value {
+      font-size: 12px;
+    }
+  }
+  .block {
+    text-align: justify;
+    .key {
+      font-weight: bold;
+      display: block;
+      font-size: 12px;
+      line-height: 2.5;
+    }
+    .value {
+      display: block;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+}

@@ -75,7 +75,6 @@ export default function Energy(props) {
             购买记录
           </div>
         }
-        icon={null}
       />
       <Summary data={summary} />
       <History data={historyData} />

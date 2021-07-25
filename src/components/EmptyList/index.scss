@@ -1,0 +1,13 @@
+.empty-list {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+  padding: 40px 0;
+  opacity: 0.4;
+  i {
+    font-size: 40px;
+  }
+}

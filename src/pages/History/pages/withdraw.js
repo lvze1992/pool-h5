@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Actions from 'src/actions';
 import { Toast } from 'antd-mobile';
+import { EmptyList } from 'src/components';
+import _ from 'lodash';
 import Util from 'src/utils';
 import './withdraw.scss';
 
@@ -55,6 +57,7 @@ function Comp() {
           </div>
         );
       })}
+      {_.isEmpty(historyData) ? <EmptyList /> : null}
     </div>
   );
 }

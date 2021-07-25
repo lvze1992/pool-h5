@@ -8,9 +8,12 @@ import './Setting.scss';
 export default function Setting() {
   const history = useHistory();
   let store = useStore();
+  const goBack = () => {
+    history.goBack();
+  };
   return (
     <div className="setting-page">
-      <CustomNav title="设置" />
+      <CustomNav title="设置" icon={null} />
       <div className="user">
         <i className="iconfont icon-subscriber-square" />
         <span>{store.user.username}</span>
@@ -20,6 +23,7 @@ export default function Setting() {
         onClick={() => {
           history.push('/auth', {
             authType: 'modifyTradePwd',
+            backPage: '/setting',
           });
         }}
       >
@@ -31,6 +35,7 @@ export default function Setting() {
         onClick={() => {
           history.push('/auth', {
             authType: 'modifyPwd',
+            backPage: '/setting',
           });
         }}
       >
