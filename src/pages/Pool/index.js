@@ -57,14 +57,14 @@ export default function Pool(props) {
               </div>
             </div>
             <div className="action">
-              <Button
+              {/* <Button
                 type="ghost"
                 onClick={() => {
                   history.push(`/energy/${id}`);
                 }}
               >
                 我的算力
-              </Button>
+              </Button> */}
               <Button
                 type="primary"
                 onClick={() => {

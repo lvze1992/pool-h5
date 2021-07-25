@@ -53,18 +53,7 @@ export default function Wallet() {
 
   return (
     <div className="wallet-wrapper">
-      <CustomNav
-        title="JL云矿"
-        icon={null}
-        rightContent={
-          <i
-            className="iconfont icon-shezhi"
-            onClick={() => {
-              history.push('/setting');
-            }}
-          />
-        }
-      />
+      <CustomNav title="JL云矿" icon={null} />
       <Summary data={summary} />
       <Tool />
       <AssetPage data={assets} />

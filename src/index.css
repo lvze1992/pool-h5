@@ -29,3 +29,6 @@ body > canvas {
   min-width: 270px;
   width: auto !important;
 }
+#root .am-button {
+  font-size: 15px;
+}

@@ -59,7 +59,7 @@ export default function Pool(props) {
           </div>
         </div>
         <div className="price-box">
-          <span className="price-key">算力单价</span>
+          <h4>算力单价</h4>
           <span className="price-value">
             220
             <span className="unit">USDT/10M</span>
