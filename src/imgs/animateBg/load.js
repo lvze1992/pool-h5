@@ -13,10 +13,10 @@ export function loadAnimate() {
     return;
   }
   setTimeout(() => {
-    insertJs('./animateBg/jquery.min.js');
-    insertJs('./animateBg/TweenMax.min.js');
-    insertJs('./animateBg/three.min.js');
-    insertJs('./animateBg/script.js');
+    insertJs('./animatebg/jquery.min.js');
+    insertJs('./animatebg/TweenMax.min.js');
+    insertJs('./animatebg/three.min.js');
+    insertJs('./animatebg/script.js');
   }, 0);
   clearInterval(window.bgAnimateFuncTimer);
   window.bgAnimateFuncTimer = setInterval(() => {

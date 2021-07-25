@@ -20,7 +20,7 @@ export default function Pool() {
   return (
     <div className="pool-wrapper">
       <CustomNav
-        title="加零云矿"
+        title="JL云矿"
         icon={null}
         rightContent={
           <div

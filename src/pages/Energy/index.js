@@ -64,7 +64,7 @@ export default function Energy(props) {
   return (
     <div className="energy-page">
       <CustomNav
-        title="加零云矿"
+        title="JL云矿"
         rightContent={
           <div
             className="action-button"

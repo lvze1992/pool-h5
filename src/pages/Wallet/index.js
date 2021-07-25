@@ -54,7 +54,7 @@ export default function Wallet() {
   return (
     <div className="wallet-wrapper">
       <CustomNav
-        title="加零云矿"
+        title="JL云矿"
         icon={null}
         rightContent={
           <i

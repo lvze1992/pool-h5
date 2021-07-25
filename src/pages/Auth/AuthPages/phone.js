@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Picker, Toast } from 'antd-mobile';
-import { loadAnimate, cancelAnimate } from 'src/imgs/animateBg/load';
+import { loadAnimate, cancelAnimate } from 'src/imgs/animatebg/load';
 import countries from '../location.json';
 function renderActionButton({ code, phone, authType, setAuthType, next }) {
   if (authType === 'loginSms') {
@@ -59,7 +59,7 @@ export default function Phone(props) {
       <div className="welcome-banner">
         <h1>你好，</h1>
         <h1>
-          欢迎来到<span className="high-light">加零云矿</span>
+          欢迎来到<span className="high-light">JL云矿</span>
         </h1>
       </div>
       <div className="input-box">
