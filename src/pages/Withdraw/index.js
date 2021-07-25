@@ -7,7 +7,7 @@ import { useStore } from 'src/Provider';
 import Utils from 'src/utils';
 import Actions from 'src/actions';
 import './Withdraw.scss';
-const token = 'XCH';
+const token = 'ETH';
 async function fetchAsset(store) {
   const curToken = store.tokens.filter((i) => i.token === token)[0];
   const assetList = await Actions.getUserAssetList(curToken);
@@ -103,7 +103,7 @@ export default function Withdraw() {
         </div>
         <div className="fee-box">
           <span>{withdrawFee || '-'}</span>
-          <span>XCH</span>
+          <span>{token}</span>
         </div>
         <div className="tip">提币处理时间为每日9:00-23:00，请耐心等待</div>
         <Button

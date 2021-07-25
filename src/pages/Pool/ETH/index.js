@@ -7,16 +7,19 @@ import Info from './Info';
 import qrcode from '../../../imgs/qrcode.jpg';
 import './pool.scss';
 const data = {
-  price: '80',
+  price: '22',
+  priceUnit: 'U/M',
   weChat: 'ypdsh001',
 };
 
 async function buyPool() {
   Toast.info('微信号已复制，请前往微信联系客服咨询', 3);
 }
-export default function Pool() {
+export default function Pool(props) {
+  const { poolId } = props;
+
   const history = useHistory();
-  const { price, weChat } = data;
+  const { price, priceUnit, weChat } = data;
   return (
     <div className="pool-wrapper">
       <CustomNav
@@ -25,53 +28,68 @@ export default function Pool() {
           <div
             className="action-button"
             onClick={() => {
-              history.push('/history/buyPool');
+              history.push(`/history/buyPool/${poolId}`);
             }}
           >
             购买记录
           </div>
         }
       />
-      <div className="banner">
-        <h1>CHIA 奇亚币挖矿</h1>
-        <h3>全新中本聪共识+BitTorrent创始人+A16z投资</h3>
-        <h3>绿色的类比特币公链，P盘周期短</h3>
+      <div className="body">
+        <div className="banner">
+          <h1>做以太坊的主人，买不如挖</h1>
+          <h3>Nvidia 3060Ti 8卡服务器，功耗低、算力强</h3>
+          <h3>ETH转POS后，支持其他币种挖矿，灵活高效</h3>
+        </div>
+        <div className="box-list">
+          <div className="box">
+            <span>
+              {price}
+              {priceUnit}
+            </span>
+            <span>全网低价</span>
+          </div>
+          <div className="box">
+            <span>720天</span>
+            <span>服务周期长</span>
+          </div>
+          <div className="box">
+            <span>快速上架</span>
+            <span>闪电挖矿</span>
+          </div>
+        </div>
+        <div className="price-box">
+          <span className="price-key">算力单价</span>
+          <span className="price-value">
+            220
+            <span className="unit">USDT/10M</span>
+          </span>
+          <Button
+            type="primary"
+            onClick={() => {
+              copy(weChat);
+              buyPool();
+            }}
+          >
+            立即购买
+          </Button>
+        </div>
+        <div className="qrcode">
+          <img src={qrcode} alt="qrcode" />
+          <p>客服微信: {weChat}</p>
+        </div>
+        <Info />
       </div>
-      <div className="box-list">
-        <div className="box">
-          <span>{price}U/T</span>
-          <span>全网低价</span>
-        </div>
-        <div className="box">
-          <span>540天</span>
-          <span>服务周期长</span>
-        </div>
-        <div className="box">
-          <span>快速上架</span>
-          <span>闪电P盘</span>
-        </div>
-      </div>
-      <div className="price-box">
-        <span className="price-key">算力单价</span>
-        <span className="price-value">
-          {price}
-          <span className="unit">USDT/T</span>
-        </span>
+      <div className="bottom-action">
         <Button
           type="primary"
           onClick={() => {
-            copy(weChat);
-            buyPool();
+            history.push(`/energy/${poolId}`);
           }}
         >
-          立即购买
+          我的算力
         </Button>
       </div>
-      <div className="qrcode">
-        <img src={qrcode} alt="qrcode" />
-        <p>客服微信: {weChat}</p>
-      </div>
-      <Info />
     </div>
   );
 }

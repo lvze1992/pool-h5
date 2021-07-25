@@ -1,6 +1,8 @@
+import _ from 'lodash';
 import React from 'react';
 import Utils from 'src/utils';
-const columns = [
+import { EmptyList } from 'src/components';
+const ChiaColumns = [
   {
     title: '日期',
     value: 'date',
@@ -20,14 +22,38 @@ const columns = [
     },
   },
 ];
+const EthColumns = [
+  {
+    title: '日期',
+    value: 'date',
+  },
+  {
+    title: '当日算力/M',
+    value: 'availablePower',
+    render: (v) => {
+      return Utils.cutNumber(v, 6);
+    },
+  },
+  {
+    title: '当日收益/ETH',
+    value: 'todayProfit',
+    render: (v) => {
+      return Utils.cutNumber(v, 6);
+    },
+  },
+];
+const ColumnsMap = {
+  CHIA: ChiaColumns,
+  ETH: EthColumns,
+};
 export default function History(props) {
-  const { data } = props;
+  const { data, poolId } = props;
   return [
     <div className="history-list title" key="title">
       收益记录<span className="tip"></span>
     </div>,
     <div className="history-list row theader" key="theader">
-      {columns.map((item) => {
+      {ColumnsMap[poolId].map((item) => {
         const { value, title } = item;
         return <span key={value}>{title}</span>;
       })}
@@ -36,13 +62,14 @@ export default function History(props) {
       {data.map((dataItem, idx) => {
         return (
           <div className="row" key={idx}>
-            {columns.map((item) => {
+            {ColumnsMap[poolId].map((item) => {
               const { value, render } = item;
               return <span key={value}>{render ? render(dataItem[value]) : dataItem[value] || '-'}</span>;
             })}
           </div>
         );
       })}
+      {_.isEmpty(data) ? <EmptyList /> : null}
     </div>,
   ];
 }

@@ -14,7 +14,8 @@ const data = {
 async function buyPool() {
   Toast.info('微信号已复制，请前往微信联系客服咨询', 3);
 }
-export default function Pool() {
+export default function Pool(props) {
+  const { poolId } = props;
   const history = useHistory();
   const { price, weChat } = data;
   return (
@@ -25,7 +26,7 @@ export default function Pool() {
           <div
             className="action-button"
             onClick={() => {
-              history.push('/history/buyPool');
+              history.push(`/history/buyPool/${poolId}`);
             }}
           >
             购买记录

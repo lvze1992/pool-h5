@@ -35,8 +35,9 @@ function App() {
           <Redirect exact from="/" to="/pool" />
           <Route path="/auth" component={Auth} />
           <PrivateRoute path="/pool/:id" component={Pool} />
-          <PrivateRoute path="/energy" component={Energy} />
+          <PrivateRoute path="/energy/:id" component={Energy} />
           <PrivateRoute path="/withdraw" component={Withdraw} />
+          <PrivateRoute path="/history/:pageType/:id" component={History} />
           <PrivateRoute path="/history/:pageType" component={History} />
           <Switch>
             <Tab>

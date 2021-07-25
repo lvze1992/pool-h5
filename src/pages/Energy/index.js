@@ -50,6 +50,8 @@ async function fetchData() {
 }
 export default function Energy(props) {
   const history = useHistory();
+  const poolId = _.get(props, 'match.params.id');
+
   const [historyData, setHistoryData] = useState([]);
   const [summary, setSummary] = useState({});
   useEffect(() => {
@@ -69,15 +71,15 @@ export default function Energy(props) {
           <div
             className="action-button"
             onClick={() => {
-              history.push('/history/buyPool');
+              history.push(`/history/buyPool/${poolId}`);
             }}
           >
             购买记录
           </div>
         }
       />
-      <Summary data={summary} />
-      <History data={historyData} />
+      <Summary data={summary} poolId={poolId} />
+      <History data={historyData} poolId={poolId} />
     </div>
   );
 }

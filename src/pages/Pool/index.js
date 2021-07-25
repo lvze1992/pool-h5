@@ -29,7 +29,7 @@ export default function Pool(props) {
   const poolId = _.get(props, 'match.params.id');
   if (poolId && poolPages[poolId]) {
     const CompPage = poolPages[poolId];
-    return <CompPage />;
+    return <CompPage poolId={poolId} />;
   }
   return (
     <div className="pool-list">
