@@ -43,6 +43,7 @@ export default function Pool(props) {
         </div>
         <div className="box-list">
           <div className="box">
+            <i className="iconfont icon-dijiabaozheng" style={{ color: '#d5bf93' }} />
             <span>
               {price}
               {priceUnit}
@@ -50,10 +51,12 @@ export default function Pool(props) {
             <span>全网低价</span>
           </div>
           <div className="box">
+            <i className="iconfont icon-shijian" style={{ color: '#eee881' }} />
             <span>720天</span>
             <span>服务周期长</span>
           </div>
           <div className="box">
+            <i className="iconfont icon-shandian" style={{ color: '#1297da' }} />
             <span>快速上架</span>
             <span>闪电挖矿</span>
           </div>
