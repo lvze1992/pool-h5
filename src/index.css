@@ -25,3 +25,7 @@ body > canvas {
   opacity: 0.6;
   display: none;
 }
+.am-modal-transparent {
+  min-width: 270px;
+  width: auto !important;
+}

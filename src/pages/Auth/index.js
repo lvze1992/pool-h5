@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import _ from 'lodash';
 import * as AuthPages from './AuthPages';
-import { CustomNav } from '../../components';
+import { CustomNav, UserHelp } from 'src/components';
 import './Auth.scss';
 
 /**
@@ -86,6 +86,9 @@ export default function Auth(props) {
         }}
       />
       <div className="auth-container">{!!Comp ? <Comp next={next} pre={pre} authStatus={authStatus} authConfig={authConfig} authType={authType} setAuthType={setAuthType} /> : null}</div>
+      <div className="bottom-container">
+        <UserHelp />
+      </div>
     </div>
   );
 }

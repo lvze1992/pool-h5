@@ -1,0 +1,17 @@
+.user-link {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  line-height: 50px;
+  font-size: 10px;
+}
+
+.user-help-text {
+  height: 60vh;
+  white-space: pre-wrap;
+  text-align: justify;
+  font-size: 10px;
+  overflow: auto;
+  width: 80vw;
+}
