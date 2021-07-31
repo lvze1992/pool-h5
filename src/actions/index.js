@@ -17,6 +17,20 @@ class Actions {
   async getChiaConfig() {
     try {
       const query = new AV.Query('ChiaWork');
+      query.descending('createdAt');
+      const r = await query.first();
+      return r ? r.toJSON() : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  /**
+   * ETH 每日算力
+   */
+  async getEthConfig() {
+    try {
+      const query = new AV.Query('EthWork');
+      query.descending('createdAt');
       const r = await query.first();
       return r ? r.toJSON() : {};
     } catch (e) {
@@ -128,15 +142,42 @@ class Actions {
     });
   }
   /**
+   * 收益记录
+   */
+  async getEthUserProfitList() {
+    const query = new AV.Query('EthUserProfitList');
+    query.descending('date');
+    query.equalTo('user', AV.User.current());
+    const data = await query.find();
+    return data.map((i) => {
+      return i.toJSON();
+    });
+  }
+  /**
    * 购买记录
    */
   async getChiaUserBuy() {
     const query = new AV.Query('ChiaUserBuy');
     query.descending('date');
     query.equalTo('user', AV.User.current());
+    query.include('work');
     const data = await query.find();
     return data.map((i) => {
       return i.toJSON();
+    });
+  }
+  /**
+   * 购买记录
+   */
+  async getEthUserBuy() {
+    const query = new AV.Query('EthUserBuy');
+    query.include('work');
+    query.descending('date');
+    query.equalTo('user', AV.User.current());
+    const data = await query.find();
+    return data.map((i) => {
+      const work = i.get('work');
+      return { ...i.toJSON(), work: work ? work.toJSON() : null };
     });
   }
   /**
@@ -187,8 +228,13 @@ class Actions {
     return await query.save();
   }
   // 提现地址校验
-  async addressLimit({ address }) {
-    const reg = RegExp(/^xch[a-z0-9]{59}$/);
+  async addressLimit({ address, token }) {
+    let reg;
+    if (token.token === 'XCH') {
+      reg = RegExp(/^xch[a-z0-9]{59}$/);
+    } else if (token.token === 'ETH') {
+      reg = RegExp(/^(0x)?[0-9a-fA-F]{40}$/);
+    }
     if (!reg.test(address)) {
       // eslint-disable-next-line no-throw-literal
       throw { rawMessage: '提现地址不规范' };
@@ -212,6 +258,5 @@ class Actions {
       throw { rawMessage: '提现数量不可低于手续费' };
     }
   }
-  
 }
 export default new Actions();

@@ -8,9 +8,13 @@ import Summary from './Summary';
 import History from './History';
 import { CustomNav } from 'src/components';
 import './Summary.scss';
-function calcSummary(list) {
+function calcSummary(list, poolId) {
   const uniqList = _.uniqBy(list, function (o) {
-    return o.chiaUserBuy.objectId;
+    if (poolId === 'CHIA') {
+      return o.chiaUserBuy.objectId;
+    } else if (poolId === 'ETH') {
+      return o.ethUserBuy.objectId;
+    }
   });
   const totalProfit = uniqList.reduce((pre, cur) => {
     return Utils.calc(`${pre} + ${cur.totalProfit}`);
@@ -21,9 +25,9 @@ function calcSummary(list) {
   const waitpPower = uniqList.reduce((pre, cur) => {
     return Utils.calc(`${pre} + ${cur.waitpPower}`);
   }, 0);
-  return { totalProfit, availablePower, waitpPower };
+  return { totalProfit, availablePower, waitpPower, perMProfit: list[0].perMProfit };
 }
-function calcMergeDay(historyData) {
+function calcMergeDay(historyData, poolId) {
   const merged = historyData.reduce((pre, { date, availablePower, todayProfit }) => {
     if (pre[date]) {
       const { availablePower: _availablePower, todayProfit: _todayProfit } = pre[date];
@@ -39,10 +43,15 @@ function calcMergeDay(historyData) {
     ['desc'],
   );
 }
-async function fetchData() {
+async function fetchData(poolId) {
   try {
-    const chiaUserProfitList = await Actions.getChiaUserProfitList();
-    return chiaUserProfitList;
+    if (poolId === 'CHIA') {
+      const chiaUserProfitList = await Actions.getChiaUserProfitList();
+      return chiaUserProfitList;
+    } else if (poolId === 'ETH') {
+      const ethUserProfitList = await Actions.getEthUserProfitList();
+      return ethUserProfitList;
+    }
   } catch (e) {
     Toast.info(e.rawMessage || '异常：E31');
     return [];
@@ -56,9 +65,9 @@ export default function Energy(props) {
   const [summary, setSummary] = useState({});
   useEffect(() => {
     (async function () {
-      const historyData = await fetchData();
-      const summary = calcSummary(historyData);
-      const historyList = calcMergeDay(historyData);
+      const historyData = await fetchData(poolId);
+      const summary = calcSummary(historyData, poolId);
+      const historyList = calcMergeDay(historyData, poolId);
       setHistoryData(historyList);
       setSummary(summary);
     })();

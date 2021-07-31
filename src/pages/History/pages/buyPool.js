@@ -5,32 +5,38 @@ import { EmptyList } from 'src/components';
 import _ from 'lodash';
 import './buyPool.scss';
 const title = '购买记录';
-async function fetchData() {
+async function fetchData(poolId) {
   try {
-    const chiaUserBuy = await Actions.getChiaUserBuy();
-    return chiaUserBuy;
+    if (poolId === 'CHIA') {
+      const chiaUserBuy = await Actions.getChiaUserBuy();
+      return chiaUserBuy;
+    } else if (poolId === 'ETH') {
+      const chiaUserBuy = await Actions.getEthUserBuy();
+      return chiaUserBuy;
+    }
   } catch (e) {
     Toast.info(e.rawMessage || '异常：BP20');
     return [];
   }
 }
-function Comp() {
+function Comp({ poolId }) {
   const [historyData, setHistoryData] = useState([]);
   useEffect(() => {
     (async function () {
-      const historyData = await fetchData();
+      const historyData = await fetchData(poolId);
       setHistoryData(historyData);
     })();
   }, []);
+
   return (
     <div className="scroll-list buyPool-history">
       {historyData.map((item, idx) => {
-        const { name, buyPowerCost, buyPower, startDate, endDate } = item;
+        const { work, buyPowerCost, buyPower, startDate, endDate } = item;
         return (
           <div key={idx} className="scroll-item">
             <div className="title">
-              <span>{name || 'Chia云算力'}</span>
-              <span>{`${buyPowerCost} USDT / ${buyPower} T`}</span>
+              <span>{work && work.name}</span>
+              <span>{`${buyPowerCost} USDT / ${buyPower} ${work && work.powerUnit}`}</span>
             </div>
             <div className="line">
               <span>生效时间</span>

@@ -50,7 +50,7 @@ export default function Withdraw() {
   }, [store.tokens]);
 
   const { available = '-' } = asset;
-  const { withdrawFee } = _.get(store, 'chia.chiaConfig', {});
+  const { withdrawFee } = _.get(store, 'eth.ethConfig', {});
 
   return (
     <div className="withdraw-page">

@@ -1,36 +1,78 @@
 import React from 'react';
 import Utils from 'src/utils';
+import { Button } from 'antd-mobile';
+import { useHistory } from 'react-router-dom';
 const UnitMap = {
-  CHIA: {
-    totalProfit: '累计挖矿净收益/XCH',
-    availablePower: '有效算力/T',
-    waitpPower: '待P盘算力/T',
-  },
-  ETH: {
-    totalProfit: '累计挖矿净收益/ETH',
-    availablePower: '总算力/M',
-    waitpPower: '待提取收益/ETH',
-  },
+  CHIA: [
+    {
+      key: 'totalProfit',
+      label: '累计挖矿净收益/XCH',
+    },
+    {
+      key: 'availablePower',
+      label: '有效算力/T',
+    },
+    {
+      key: 'waitpPower',
+      label: '待P盘算力/T',
+    },
+  ],
+  ETH: [
+    {
+      key: 'totalProfit',
+      label: '累计挖矿净收益/ETH',
+    },
+    {
+      key: 'availablePower',
+      label: '总算力/M',
+    },
+    {
+      key: 'perMProfit',
+      label: '单M收益/ETH',
+      render: (history) => {
+        return (
+          <Button
+            type="primary"
+            size="small"
+            style={{
+              fontSize: '12px',
+              position: 'relative',
+              top: '10px',
+            }}
+            onClick={() => {
+              history.push('/wallet');
+            }}
+          >
+            提取收益
+          </Button>
+        );
+      },
+    },
+  ],
 };
 export default function Summary(props) {
   const { data, poolId } = props;
-  const { totalProfit, availablePower, waitpPower } = data;
-  const labels = UnitMap[poolId];
+  const history = useHistory();
+  const columns = UnitMap[poolId];
   return (
     <div className="summary-page">
       <div className="box">
-        <span className="value bigger">{totalProfit}</span>
-        <span className="key">{labels.totalProfit}</span>
+        <span className="value bigger">{data[columns[0].key]}</span>
+        <span className="key">{columns[0].label}</span>
       </div>
       <div className="line">
         <div className="box">
-          <span className="value">{availablePower ? Utils.cutNumber(availablePower, 6) : '-'}</span>
-          <span className="key">{labels.availablePower}</span>
+          <span className="value">{data[columns[1].key] ? Utils.cutNumber(data[columns[1].key], 6) : '-'}</span>
+          <span className="key">{columns[1].label}</span>
         </div>
-        <div className="box">
-          <span className="value">{waitpPower ? Utils.cutNumber(waitpPower, 6) : '-'}</span>
-          <span className="key">{labels.waitpPower}</span>
-        </div>
+        {columns[2].render ? (
+          columns[2].render(history)
+        ) : (
+          <div className="box">
+            <span className="value">{data[columns[2].key] ? Utils.cutNumber(data[columns[2].key], 6) : '-'}</span>
+            <span className="key">{columns[2].label}</span>
+          </div>
+        )}
       </div>
     </div>
   );
