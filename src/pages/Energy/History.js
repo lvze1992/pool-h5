@@ -38,7 +38,7 @@ const EthColumns = [
     title: '当日收益/ETH',
     value: 'todayProfit',
     render: (v) => {
-      return Utils.cutNumber(v, 6);
+      return Utils.cutNumber(v, 8);
     },
   },
 ];
