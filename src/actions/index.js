@@ -246,7 +246,7 @@ class Actions {
     const { total, withdrawFee, token } = limit;
     const assetList = await this.getUserAssetList(token);
     const asset = Utils.calcAssetSummary(assetList);
-    const available = asset[token.token].available || 0;
+    const available = asset[token.token] ? asset[token.token].available : 0;
     if (!total || _.isNaN(Number(total))) {
       // eslint-disable-next-line no-throw-literal
       throw { rawMessage: '请输入正确的提现数量' };

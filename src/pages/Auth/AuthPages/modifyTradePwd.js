@@ -6,7 +6,6 @@ import { Loading } from 'src/components';
 async function modifyTradePwd({ pre, next, tradePwd, authType, store }) {
   try {
     await Actions.modifyTradePwd(tradePwd);
-    store.setHasTradePwd(true);
     if (authType === 'tradeAuth') {
       next({});
     } else {
