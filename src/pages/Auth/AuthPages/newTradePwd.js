@@ -9,7 +9,7 @@ export default function SetTradePwd(props) {
         <input
           className="custom-input"
           type="password"
-          placeholder="设置交易密码"
+          placeholder="请设置6位数字交易密码"
           maxLength={6}
           value={tradePwd}
           onChange={(e) => {

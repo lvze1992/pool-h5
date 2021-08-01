@@ -55,8 +55,19 @@ export default function Password(props) {
       </div>
       <Button
         type="primary"
-        disabled={!(newPwd === newPwd2 && oldPwd.length >= 8 && newPwd.length >= 8)}
         onClick={async () => {
+          if (!oldPwd || oldPwd.length < 8) {
+            Toast.info('请输入旧密码');
+            return;
+          }
+          if (!newPwd || newPwd.length < 8) {
+            Toast.info('请输入新密码，至少8位');
+            return;
+          }
+          if (newPwd !== newPwd2) {
+            Toast.info('新密码2次输入不一致');
+            return;
+          }
           checkPwd({ oldPwd, newPwd, newPwd2, next });
         }}
       >

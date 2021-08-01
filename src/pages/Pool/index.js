@@ -1,4 +1,5 @@
 import React from 'react';
+import { CustomNav } from 'src/components';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd-mobile';
 import _ from 'lodash';
@@ -33,6 +34,7 @@ export default function Pool(props) {
   }
   return (
     <div className="pool-list">
+      <CustomNav title="JL云矿" icon={null} />
       {poolList.map((item, idx) => {
         const { name, icon, profitRate, price, priceUnit, id } = item;
         return (

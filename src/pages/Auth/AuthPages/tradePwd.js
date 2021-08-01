@@ -7,7 +7,7 @@ export default function TradePwd(props) {
     <div>
       <CodeInput
         type="password"
-        placeholder="输入交易密码"
+        placeholder="输入6位交易密码"
         value={tradePwd}
         onChange={(value) => {
           setPwd(value);
