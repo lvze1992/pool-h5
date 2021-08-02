@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import * as copy from 'copy-to-clipboard';
 import { CustomNav } from 'src/components';
 import Info from './Info';
-import qrcode from '../../../imgs/qrcode.jpg';
+import qrcode from '../../../imgs/qrcode1.jpg';
 import './pool.scss';
 const data = {
   price: '80',

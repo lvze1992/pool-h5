@@ -25,7 +25,7 @@ function calcSummary(list, poolId) {
   const waitpPower = uniqList.reduce((pre, cur) => {
     return Utils.calc(`${pre} + ${cur.waitpPower}`);
   }, 0);
-  return { totalProfit, availablePower, waitpPower, perMProfit: list[0].perMProfit };
+  return { totalProfit, availablePower, waitpPower, perMProfit: _.get(list,'[0].perMProfit') };
 }
 function calcMergeDay(historyData, poolId) {
   const merged = historyData.reduce((pre, { date, availablePower, todayProfit }) => {
