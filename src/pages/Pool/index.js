@@ -13,7 +13,7 @@ const poolList = [
     name: 'ETH云算力一期',
     profitRate: '70%-310%',
     icon: [<i className="iconfont icon-huo" />],
-    price: '22',
+    price: '26',
     priceUnit: 'USDT/M',
     id: 'ETH',
   },

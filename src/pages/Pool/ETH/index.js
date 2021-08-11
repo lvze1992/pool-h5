@@ -7,7 +7,7 @@ import Info from './Info';
 import qrcode from '../../../imgs/qrcode1.jpg';
 import './pool.scss';
 const data = {
-  price: '22',
+  price: '26',
   priceUnit: 'U/M',
   weChat: 'ypdsh001',
 };
@@ -64,7 +64,7 @@ export default function Pool(props) {
         <div className="price-box">
           <h4>算力单价</h4>
           <span className="price-value">
-            220
+            260
             <span className="unit">USDT/10M</span>
           </span>
           <Button
