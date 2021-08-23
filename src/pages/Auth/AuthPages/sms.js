@@ -5,9 +5,16 @@ import Utils from 'src/utils';
 import { useStore } from 'src/Provider';
 import { CodeInput } from '../../../components';
 let timer = null;
+let safeTimer = null;
 async function sendSmsCode({ authType, phone, code, setRemain }) {
   try {
     if (['loginSms', 'loginPwd', 'modifyPwd', 'modifyTradePwd', 'tradeAuth'].includes(authType)) {
+      if(safeTimer){
+        return;
+      }
+      safeTimer = setTimeout(()=>{
+        safeTimer = null;
+      }, 9000);
       await Actions.AV.Cloud.requestSmsCode(phone ? Utils.formatPhone(phone, code) : Actions.AV.User.current().get('mobilePhoneNumber'));
     }
     setRemain(60);
